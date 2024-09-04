@@ -1,7 +1,9 @@
+import React from 'react';
 import { Button } from 'react-bootstrap';
 import { signOut } from '../utils/auth';
 import { useAuth } from '../utils/context/authContext';
 
+// user id using useAuth hook
 function Home() {
   const { user } = useAuth();
 
@@ -23,5 +25,4 @@ function Home() {
     </div>
   );
 }
-
 export default Home;
