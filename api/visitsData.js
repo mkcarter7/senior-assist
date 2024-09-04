@@ -4,7 +4,7 @@ const endpoint = clientCredentials.databaseURL;
 
 // API calls for visits
 const getVisits = (uid) => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/visits.json?orderBy="uid"&equalTo="${uid}"`, {
+  fetch(`${endpoint}/Visits.json?orderBy="uid"&equalTo="${uid}"`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -17,7 +17,7 @@ const getVisits = (uid) => new Promise((resolve, reject) => {
 
 // to delete visits
 const deleteVisits = (firebaseKey) => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/visits/${firebaseKey}.json`, {
+  fetch(`${endpoint}/Visits/${firebaseKey}.json`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
@@ -30,7 +30,7 @@ const deleteVisits = (firebaseKey) => new Promise((resolve, reject) => {
 
 // create visit
 const createVisit = (payload) => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/visits.json`, {
+  fetch(`${endpoint}/Visits.json`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -44,7 +44,7 @@ const createVisit = (payload) => new Promise((resolve, reject) => {
 
 // update visits
 const updateVisits = (payload) => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/visits/${payload.firebaseKey}.json`, {
+  fetch(`${endpoint}/Visits/${payload.firebaseKey}.json`, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
@@ -58,7 +58,7 @@ const updateVisits = (payload) => new Promise((resolve, reject) => {
 
 // get single visit
 const getSingleVisit = (firebaseKey) => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/visits/${firebaseKey}.json`, {
+  fetch(`${endpoint}/Visits/${firebaseKey}.json`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -71,7 +71,7 @@ const getSingleVisit = (firebaseKey) => new Promise((resolve, reject) => {
 
 // get visit by senior
 const getBooksBySenior = (firebaseKey) => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/visits.json?orderBy="senior_id"&equalTo="${firebaseKey}"`, {
+  fetch(`${endpoint}/Visits.json?orderBy="senior_id"&equalTo="${firebaseKey}"`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',

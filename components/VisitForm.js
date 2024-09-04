@@ -2,12 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { PropTypes } from 'prop-types';
 import { Button, Form } from 'react-bootstrap';
-import { createVisit, updateVisits } from '../../api/visitsData';
-import { useAuth } from '../../utils/context/authContext';
+import { useAuth } from '../utils/context/authContext';
+import { createVisit, updateVisits } from '../api/visitsData';
+import { getSenior } from '../api/seniorData';
 
 const intialState = {
   id: '',
-  Senior_id: '',
+  name: '',
   notes: '',
   time_logged: '',
   personal_care_id: '',
@@ -20,7 +21,7 @@ function VisitForm({ obj }) {
 
   useEffect(() => {
     if (obj.firebaseKey) setFormInput(obj);
-    setSeniors(user.uid).then(setSeniors);
+    getSenior(user.uid).then(setSeniors);
   }, [obj, user]);
 
   const handleChange = (e) => {
@@ -34,14 +35,14 @@ function VisitForm({ obj }) {
     e.preventDefault();
 
     if (obj.firebaseKey) {
-      updateVisits(formInput).then(() => router.push(`/visit/${obj.firebaseKey}`));
+      updateVisits(formInput).then(() => router.push(`/Visits/${obj.firebaseKey}`));
     } else {
       const payload = { ...formInput, uid: user.uid };
-      createVisit(payload).then(({ name }) => {
-        const patchPayload = { firebaseKey: name };
+      createVisit(payload).then(({ id }) => {
+        const patchPayload = { firebaseKey: id };
 
         updateVisits(patchPayload).then(() => {
-          router.push('/visits');
+          router.push('/');
         });
       });
     }
@@ -49,7 +50,7 @@ function VisitForm({ obj }) {
   return (
     <>
       <Form onSubmit={handleSubmit}>
-        <Form.Group className="mb-3" controlId="formBasicEmail">
+        <Form.Group className="mb-3" controlId="Notes">
           <Form.Label>Notes</Form.Label>
           <Form.Control
             type="text"
@@ -60,32 +61,21 @@ function VisitForm({ obj }) {
             required
           />
         </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicPassword">
-          <Form.Label>Price</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Enter Book Price"
-            name="price"
-            value={formInput.price}
-            onChange={handleChange}
-            required
-          />
-        </Form.Group>
         <Form.Select
-          name="author_id"
+          name="personal_care_id"
           onChange={handleChange}
-          value={formInput.author_id}
+          value={formInput.personal_care_id}
           required
         >
-          <option value="">Select An Author</option>
+          <option value="">Select A Personal Care Item</option>
 
           {
-          seniors.map((author) => (
+          seniors.map((senior) => (
             <option
-              key={author.firebaseKey}
-              value={author.firebaseKey}
+              key={senior.firebaseKey}
+              value={senior.firebaseKey}
             >
-              {author.first_name} {author.last_name}
+              {senior.first_name} {senior.last_name}
             </option>
           ))
         }
@@ -115,12 +105,11 @@ function VisitForm({ obj }) {
 
 VisitForm.propTypes = {
   obj: PropTypes.shape({
-    description: PropTypes.string,
-    image: PropTypes.string,
-    price: PropTypes.string,
-    sale: PropTypes.bool,
-    title: PropTypes.string,
-    author_id: PropTypes.string,
+    id: PropTypes.string,
+    name: PropTypes.string,
+    notes: PropTypes.string,
+    time_logged: PropTypes.string,
+    personal_care_id: PropTypes.string,
     firebaseKey: PropTypes.string,
   }),
 };

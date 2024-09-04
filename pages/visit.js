@@ -1,34 +1,36 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
-import { Button } from 'react-bootstrap';
 import Link from 'next/link';
-import VisitCard from '../components/VisitCard';
+import { Button } from 'react-bootstrap';
 import { getVisits } from '../api/visitsData';
 import { useAuth } from '../utils/context/authContext';
+import VisitCard from '../components/VisitCard';
 
 function ShowVisits() {
-  // state for visits
-  const [visits, setVisits] = useState([]);
+  // Set a state for books
+  const [Visits, setVisits] = useState([]);
 
-  // user ID using useAuth Hook
+  // Get user ID using useAuth Hook
   const { user } = useAuth();
 
-  // function that makes the API call to get all the books
+  // create a function that makes the API call to get all the books
   const getAllTheVisits = () => {
     getVisits(user.uid).then(setVisits);
   };
 
-  // call to API to get all the books on component render
+  // make the call to the API to get all the books on component render
   useEffect(() => {
     getAllTheVisits();
-  });
+  }, []);
 
   return (
     <div className="text-center my-4">
-      <Link href="/visit/new" passHref>
+      <Link href="/new" passHref>
         <Button>Add A Visit</Button>
       </Link>
       <div className="d-flex flex-wrap">
-        {visits.map((visit) => (
+        {/* map over books here using BookCard component */}
+        {Visits.map((visit) => (
           <VisitCard key={visit.firebaseKey} visitObj={visit} onUpdate={getAllTheVisits} />
         ))}
       </div>
