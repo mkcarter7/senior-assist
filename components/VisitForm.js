@@ -7,7 +7,7 @@ import { createVisit, updateVisits } from '../api/visitsData';
 import { getSenior } from '../api/seniorData';
 
 const intialState = {
-  id: '',
+  id: 0,
   name: '',
   notes: '',
   time_logged: '',
@@ -105,7 +105,7 @@ function VisitForm({ obj }) {
 
 VisitForm.propTypes = {
   obj: PropTypes.shape({
-    id: PropTypes.string,
+    id: PropTypes.number,
     name: PropTypes.string,
     notes: PropTypes.string,
     time_logged: PropTypes.string,

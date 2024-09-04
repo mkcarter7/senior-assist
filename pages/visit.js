@@ -25,7 +25,7 @@ function ShowVisits() {
 
   return (
     <div className="text-center my-4">
-      <Link href="/new" passHref>
+      <Link href="/visits/new" passHref>
         <Button>Add A Visit</Button>
       </Link>
       <div className="d-flex flex-wrap">
