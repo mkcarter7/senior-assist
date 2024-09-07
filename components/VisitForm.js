@@ -1,29 +1,33 @@
-import React, { useEffect, useState } from 'react';
+import Button from 'react-bootstrap/Button';
 import { useRouter } from 'next/router';
-import { PropTypes } from 'prop-types';
-import { Button, Form } from 'react-bootstrap';
-import { useAuth } from '../utils/context/authContext';
+import PropTypes from 'prop-types';
+import { FloatingLabel } from 'react-bootstrap';
+import { useState, useEffect } from 'react';
+import Form from 'react-bootstrap/Form';
+import { getSenior, updateSenior } from '../api/seniorData';
 import { createVisit, updateVisits } from '../api/visitsData';
-import { getSenior } from '../api/seniorData';
+import { useAuth } from '../utils/context/authContext';
 
-const intialState = {
-  id: 0,
-  name: '',
+// from firebase data
+const initialState = {
+  Senior_id: '',
   notes: '',
-  time_logged: '',
-  personal_care_id: '',
+  time: '',
+  Personal_care_id: '',
 };
+// function
 function VisitForm({ obj }) {
-  const [formInput, setFormInput] = useState(intialState);
-  const [seniors, setSeniors] = useState([]);
+  const [formInput, setFormInput] = useState(initialState);
+  const [Senior, setSenior] = useState([]);
   const router = useRouter();
   const { user } = useAuth();
-
+  // use effect
   useEffect(() => {
+    getSenior(user.uid).then(setSenior);
     if (obj.firebaseKey) setFormInput(obj);
-    getSenior(user.uid).then(setSeniors);
   }, [obj, user]);
 
+  // handles the change and submit
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormInput((prevState) => ({
@@ -31,16 +35,15 @@ function VisitForm({ obj }) {
       [name]: value,
     }));
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-
     if (obj.firebaseKey) {
-      updateVisits(formInput).then(() => router.push(`/Visits/${obj.firebaseKey}`));
+      updateSenior(formInput).then(() => router.push(`/Seniors/${obj.firebaseKey}`));
     } else {
       const payload = { ...formInput, uid: user.uid };
-      createVisit(payload).then(({ id }) => {
-        const patchPayload = { firebaseKey: id };
-
+      createVisit(payload).then(({ name }) => {
+        const patchPayload = { id: name };
         updateVisits(patchPayload).then(() => {
           router.push('/');
         });
@@ -48,74 +51,101 @@ function VisitForm({ obj }) {
     }
   };
   return (
-    <>
-      <Form onSubmit={handleSubmit}>
-        <Form.Group className="mb-3" controlId="Notes">
-          <Form.Label>Notes</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Enter Notes"
-            name="notes"
-            value={formInput.notes}
-            onChange={handleChange}
-            required
-          />
-        </Form.Group>
-        <Form.Select
-          name="personal_care_id"
+    <Form onSubmit={handleSubmit}>
+      <h2 className="text-white mt-5">{obj.firebaseKey ? 'Update' : 'Create'} Visits</h2>
+
+      {/* TITLE INPUT  */}
+      <FloatingLabel controlId="floatingInput1" label="Visit" className="mb-3">
+        <Form.Control
+          type="text"
+          placeholder="Enter Visit Details"
+          name="visit"
+          value={formInput.Visit}
           onChange={handleChange}
-          value={formInput.personal_care_id}
+          required
+        />
+      </FloatingLabel>
+
+      {/* IMAGE INPUT
+      <FloatingLabel controlId="floatingInput2" label="Book Image" className="mb-3">
+        <Form.Control
+          type="url"
+          placeholder="Enter an image url"
+          name="image"
+          value={formInput.image}
+          onChange={handleChange}
+          required
+        />
+      </FloatingLabel> */}
+
+      {/* PRICE INPUT
+      <FloatingLabel controlId="floatingInput3" label="Book Price" className="mb-3">
+        <Form.Control
+          type="text"
+          placeholder="Enter price"
+          name="price"
+          value={formInput.price}
+          onChange={handleChange}
+          required
+        />
+      </FloatingLabel> */}
+
+      {/* Senior Select  */}
+      <FloatingLabel controlId="floatingSelect" label="Senior">
+        <Form.Select
+          aria-label="Senior"
+          name="Senior_id"
+          onChange={handleChange}
+          className="mb-3"
+          value={obj.Senior_id}
           required
         >
-          <option value="">Select A Personal Care Item</option>
-
+          <option value="">Select a Senior</option>
           {
-          seniors.map((senior) => (
-            <option
-              key={senior.firebaseKey}
-              value={senior.firebaseKey}
-            >
-              {senior.first_name} {senior.last_name}
-            </option>
-          ))
-        }
-
+            Senior.map((senior) => (
+              <option
+                key={Senior.firebaseKey}
+                value={Senior.firebaseKey}
+              >
+                {senior.name}
+              </option>
+            ))
+          }
         </Form.Select>
-        <Form.Group className="mb-3" controlId="formBasicCheckbox">
-          <Form.DropDown
-            type="switch"
-            label="personal_care"
-            name="personal care"
-            checked={formInput.sale}
-            onChange={(e) => {
-              setFormInput((prevState) => ({
-                ...prevState,
-                sale: e.target.checked,
-              }));
-            }}
-          />
-        </Form.Group>
-        <Button variant="primary" type="submit">
-          {obj.firebaseKey ? 'Update Note' : 'Submit Note'}
-        </Button>
-      </Form>
-    </>
+      </FloatingLabel>
+
+      {/* VISIT DETAILS
+      <FloatingLabel controlId="floatingTextarea" label="visit details" className="mb-3">
+        <Form.Control
+          as="textarea"
+          placeholder="visit details"
+          style={{ height: '100px' }}
+          name="visit details"
+          value={formInput.description}
+          onChange={handleChange}
+          required
+        />
+      </FloatingLabel>
+ */}
+
+      {/* SUBMIT BUTTON  */}
+      <Button type="submit">{obj.firebaseKey ? 'Update' : 'Create'} Visit</Button>
+    </Form>
   );
 }
 
 VisitForm.propTypes = {
   obj: PropTypes.shape({
-    id: PropTypes.number,
-    name: PropTypes.string,
+    Senior_id: PropTypes.string,
     notes: PropTypes.string,
-    time_logged: PropTypes.string,
+    time: PropTypes.string,
     personal_care_id: PropTypes.string,
     firebaseKey: PropTypes.string,
   }),
 };
 
 VisitForm.defaultProps = {
-  obj: intialState,
+  obj: initialState,
 };
 
 export default VisitForm;
