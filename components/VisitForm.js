@@ -36,6 +36,10 @@ function VisitForm({ obj }) {
     }));
   };
 
+  const handleCareToggle = () => {
+    setFormInput((prev) => ({ ...prev, care: !prev.care }));
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (obj.firebaseKey) {
@@ -54,7 +58,7 @@ function VisitForm({ obj }) {
     <Form onSubmit={handleSubmit}>
       <h2 className="text-white mt-5">{obj.firebaseKey ? 'Update' : 'Create'} Visits</h2>
 
-      {/* TITLE INPUT  */}
+      {/* TITLE INPUT
       <FloatingLabel controlId="floatingInput1" label="Visit" className="mb-3">
         <Form.Control
           type="text"
@@ -64,7 +68,7 @@ function VisitForm({ obj }) {
           onChange={handleChange}
           required
         />
-      </FloatingLabel>
+      </FloatingLabel> */}
 
       {/* IMAGE INPUT
       <FloatingLabel controlId="floatingInput2" label="Book Image" className="mb-3">
@@ -113,20 +117,70 @@ function VisitForm({ obj }) {
           }
         </Form.Select>
       </FloatingLabel>
-
-      {/* VISIT DETAILS
-      <FloatingLabel controlId="floatingTextarea" label="visit details" className="mb-3">
+      {/* Date/Time Entry */}
+      <FloatingLabel controlId="floatingTextarea" label="Date/Time" className="mb-3">
         <Form.Control
           as="textarea"
-          placeholder="visit details"
+          placeholder="Date Time"
           style={{ height: '100px' }}
-          name="visit details"
+          name="Date Time"
           value={formInput.description}
           onChange={handleChange}
           required
         />
       </FloatingLabel>
- */}
+
+      {/* Visit Entry */}
+      <FloatingLabel controlId="floatingTextarea" label="Visit Details" className="mb-3">
+        <Form.Control
+          as="textarea"
+          placeholder="visit details"
+          style={{ height: '100px' }}
+          name="Visit Details"
+          value={formInput.description}
+          onChange={handleChange}
+          required
+        />
+      </FloatingLabel>
+      {/* personal Care drop down */}
+      {/* <FloatingLabel controlId="floatingSelect" label="Personal Care">
+        <Form.Select
+          aria-label="Personal Care"
+          name="Personal Care"
+          onChange={handleChange}
+          className="mb-3"
+          value={formInput.personal_care_id}
+          required
+        >
+          <option value="">Select Personal Care</option>
+          <option value="Bath">Bath</option>
+          <option value="Clean Teeth">Clean Teeth</option>
+          <option value="Foot Cream">Foot Cream</option>
+          <option value="Cut Nails">Cut Nails</option>
+        </Form.Select>
+      </FloatingLabel> */}
+      <Form.Check
+        className="text-white mb-3"
+        type="switch"
+        id="care"
+        name="care"
+        label="care?"
+        checked={formInput.Personal_care_idersonal_care_id}
+        onChange={handleCareToggle}
+      />
+
+      {formInput.care && (
+        <FloatingLabel controlId="floatingInput3" label="Peronal Care" className="mb-3">
+          <Form.Control
+            type="text"
+            placeholder="Personal care"
+            name="personal care"
+            value={formInput.personal_care_id}
+            onChange={handleChange}
+            required
+          />
+        </FloatingLabel>
+      )}
 
       {/* SUBMIT BUTTON  */}
       <Button type="submit">{obj.firebaseKey ? 'Update' : 'Create'} Visit</Button>
