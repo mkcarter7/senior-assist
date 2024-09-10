@@ -43,7 +43,7 @@ function VisitForm({ obj }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (obj.firebaseKey) {
-      updateSenior(formInput).then(() => router.push(`/Seniors/${obj.firebaseKey}`));
+      updateSenior(formInput).then(() => router.push(`/Senior/${obj.firebaseKey}`));
     } else {
       const payload = { ...formInput, uid: user.uid };
       createVisit(payload).then(({ name }) => {
@@ -57,42 +57,6 @@ function VisitForm({ obj }) {
   return (
     <Form onSubmit={handleSubmit}>
       <h2 className="text-white mt-5">{obj.firebaseKey ? 'Update' : 'Create'} Visits</h2>
-
-      {/* TITLE INPUT
-      <FloatingLabel controlId="floatingInput1" label="Visit" className="mb-3">
-        <Form.Control
-          type="text"
-          placeholder="Enter Visit Details"
-          name="visit"
-          value={formInput.Visit}
-          onChange={handleChange}
-          required
-        />
-      </FloatingLabel> */}
-
-      {/* IMAGE INPUT
-      <FloatingLabel controlId="floatingInput2" label="Book Image" className="mb-3">
-        <Form.Control
-          type="url"
-          placeholder="Enter an image url"
-          name="image"
-          value={formInput.image}
-          onChange={handleChange}
-          required
-        />
-      </FloatingLabel> */}
-
-      {/* PRICE INPUT
-      <FloatingLabel controlId="floatingInput3" label="Book Price" className="mb-3">
-        <Form.Control
-          type="text"
-          placeholder="Enter price"
-          name="price"
-          value={formInput.price}
-          onChange={handleChange}
-          required
-        />
-      </FloatingLabel> */}
 
       {/* Senior Select  */}
       <FloatingLabel controlId="floatingSelect" label="Senior">
@@ -108,10 +72,10 @@ function VisitForm({ obj }) {
           {
             Senior.map((senior) => (
               <option
-                key={Senior.firebaseKey}
-                value={Senior.firebaseKey}
+                key={senior.firebaseKey}
+                value={senior.firebaseKey}
               >
-                {senior.name}
+                {Senior.name}
               </option>
             ))
           }
