@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { FloatingLabel } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
 import Form from 'react-bootstrap/Form';
-import { getSenior, updateSenior } from '../api/seniorData';
+import { getSenior } from '../api/seniorData';
 import { createVisit, updateVisits } from '../api/visitsData';
 import { useAuth } from '../utils/context/authContext';
 
@@ -24,6 +24,7 @@ function VisitForm({ obj }) {
   // use effect
   useEffect(() => {
     getSenior(user.uid).then(setSenior);
+
     if (obj.firebaseKey) setFormInput(obj);
   }, [obj, user]);
 
@@ -43,7 +44,7 @@ function VisitForm({ obj }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (obj.firebaseKey) {
-      updateSenior(formInput).then(() => router.push(`/Senior/${obj.firebaseKey}`));
+      updateVisits(formInput).then(() => router.push(`/Visit/${obj.firebaseKey}`));
     } else {
       const payload = { ...formInput, uid: user.uid };
       createVisit(payload).then(({ name }) => {
