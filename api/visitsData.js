@@ -4,7 +4,7 @@ const endpoint = clientCredentials.databaseURL;
 
 // API calls for visits
 const getVisits = (uid) => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/Visits.json?orderBy="uid"&equalTo="${uid}"`, {
+  fetch(`${endpoint}/Visits?orderBy="uid"&equalTo="${uid}"`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -70,7 +70,7 @@ const getSingleVisit = (firebaseKey) => new Promise((resolve, reject) => {
 });
 
 // get visit by senior
-const getBooksBySenior = (firebaseKey) => new Promise((resolve, reject) => {
+const getVisitsBySenior = (firebaseKey) => new Promise((resolve, reject) => {
   fetch(`${endpoint}/Visits.json?orderBy="id"&equalTo="${firebaseKey}"`, {
     method: 'GET',
     headers: {
@@ -88,5 +88,5 @@ export {
   deleteVisits,
   updateVisits,
   getSingleVisit,
-  getBooksBySenior,
+  getVisitsBySenior,
 };

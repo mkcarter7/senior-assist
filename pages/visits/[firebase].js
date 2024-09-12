@@ -22,20 +22,20 @@ export default function ViewVisit() {
     <>
       <div className="mt-5 d-flex flex-wrap">
         <div className="d-flex flex-column">
-          <img src={visitDetails.image} alt={visitDetails.title} style={{ width: '300px' }} />
+          <img src={visitDetails.image} alt={visitDetails.senior_id} style={{ width: '300px' }} />
         </div>
         <div className="text-white ms-5 details">
           <h5>
-            {visitDetails.title} by {visitDetails.authorObject?.first_name} {visitDetails.seniorObject?.last_name}
-            {visitDetails.seniorObjectObject?.favorite ? '🤍' : ''}
+            {visitDetails.senior_id} by {visitDetails.visitObject?.name} {visitDetails.seniorObject?.last_name}
+            {visitDetails.seniorObject?.favorite ? '🤍' : ''}
           </h5>
-          Author Email: <a href={`mailto:${visitDetails.authorObject?.email}`}>{visitDetails.authorObject?.email}</a>
-          <p>{visitDetails.description || ''}</p>
+          Author Email: <a href={`mailto:${visitDetails.seniorObject?.email}`}>{visitDetails.seniorObject?.email}</a>
+          <p>{visitDetails.notes || ''}</p>
           <br />
         </div>
         <br />
         <p>
-          {visitDetails.sale ? `🏷️ Sale $${visitDetails.price}` : `$${visitDetails.price}` }
+          {visitDetails.time ? `🏷️ Time $${visitDetails.time}` : `$${visitDetails.time}` }
         </p>
       </div>
     </>
