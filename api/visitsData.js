@@ -4,7 +4,7 @@ const endpoint = clientCredentials.databaseURL;
 
 // API calls for visits
 const getVisits = (uid) => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/Visits?orderBy="uid"&equalTo="${uid}"`, {
+  fetch(`${endpoint}/Visits.json?orderBy="uid"&equalTo="${uid}"`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
