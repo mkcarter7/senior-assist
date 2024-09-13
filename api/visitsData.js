@@ -14,7 +14,6 @@ const getVisits = (uid) => new Promise((resolve, reject) => {
     .then((data) => resolve(Object.values(data)))
     .catch(reject);
 });
-
 // to delete visits
 const deleteVisits = (firebaseKey) => new Promise((resolve, reject) => {
   fetch(`${endpoint}/Visits/${firebaseKey}.json`, {

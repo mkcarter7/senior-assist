@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { Button } from 'react-bootstrap';
@@ -7,7 +6,7 @@ import { useAuth } from '../utils/context/authContext';
 import VisitCard from '../components/VisitCard';
 
 function ShowVisits() {
-  // Set a state for books
+  // Set a state for visits
   const [Visits, setVisits] = useState([]);
 
   // Get user ID using useAuth Hook
@@ -21,11 +20,11 @@ function ShowVisits() {
   // make the call to the API to get all the books on component render
   useEffect(() => {
     getAllTheVisits();
-  }, []);
+  });
 
   return (
     <div className="text-center my-4">
-      <Link href="/visits/new" passHref>
+      <Link href="/visits/visit" passHref>
         <Button>Add A Visit</Button>
       </Link>
       <div className="d-flex flex-wrap">

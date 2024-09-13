@@ -35,7 +35,7 @@ function VisitCard({ visitObj, onUpdate }) {
 
 VisitCard.propTypes = {
   visitObj: PropTypes.shape({
-    Senior_id: PropTypes.string,
+    Senior_id: PropTypes.number,
     notes: PropTypes.string,
     time: PropTypes.string,
     personal_care_id: PropTypes.string,
