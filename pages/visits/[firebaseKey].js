@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
-import { getVisitsDetails } from '../../api/mergedData';
+import { getSingleVisit } from '../../api/visitsData';
 
 export default function ViewVisit() {
   // Set a state for visit
@@ -15,7 +15,7 @@ export default function ViewVisit() {
 
   // make call to API layer to get the data
   useEffect(() => {
-    getVisitsDetails(firebaseKey).then(setVisitDetails);
+    getSingleVisit(firebaseKey).then(setVisitDetails);
   }, [firebaseKey]);
 
   return (

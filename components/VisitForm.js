@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import { FloatingLabel } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
 import Form from 'react-bootstrap/Form';
-import { getSenior } from '../api/seniorData';
 import { createVisit, updateVisits } from '../api/visitsData';
 import { useAuth } from '../utils/context/authContext';
 
@@ -18,13 +17,10 @@ const initialState = {
 // function
 function VisitForm({ obj }) {
   const [formInput, setFormInput] = useState(initialState);
-  const [Senior, setSenior] = useState([]);
   const router = useRouter();
   const { user } = useAuth();
   // use effect
   useEffect(() => {
-    getSenior(user.uid).then(setSenior);
-
     if (obj.firebaseKey) setFormInput(obj);
   }, [obj, user]);
 
@@ -60,26 +56,19 @@ function VisitForm({ obj }) {
       <h2 className="text-white mt-5">{obj.firebaseKey ? 'Update' : 'Create'} Visits</h2>
 
       {/* Senior Select  */}
-      <FloatingLabel controlId="floatingSelect" label="Senior">
+      <FloatingLabel controlId="floatingSelect" label="species">
         <Form.Select
-          aria-label="Senior"
-          name="Senior_id"
+          aria-label="species"
+          name="species"
           onChange={handleChange}
           className="mb-3"
-          value={obj.Senior_id}
+          value={formInput.species}
           required
         >
-          <option value="">Select a Senior</option>
-          {
-            Senior.map((senior) => (
-              <option
-                key={senior.firebaseKey}
-                value={senior.firebaseKey}
-              >
-                {Senior.name}
-              </option>
-            ))
-          }
+          <option value="">Select Senior</option>
+          <option value="john smith">John Smith</option>
+          <option value="jane ray">Jane Ray</option>
+          <option value="todd jones">Todd Jones</option>
         </Form.Select>
       </FloatingLabel>
       {/* Date/Time Entry */}
@@ -130,7 +119,7 @@ function VisitForm({ obj }) {
         id="care"
         name="care"
         label="care?"
-        checked={formInput.Personal_care_idersonal_care_id}
+        checked={formInput.Personal_care_id}
         onChange={handleCareToggle}
       />
 
@@ -155,7 +144,7 @@ function VisitForm({ obj }) {
 
 VisitForm.propTypes = {
   obj: PropTypes.shape({
-    Senior_id: PropTypes.string,
+    Senior_id: PropTypes.number,
     notes: PropTypes.string,
     time: PropTypes.string,
     personal_care_id: PropTypes.string,

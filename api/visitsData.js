@@ -4,7 +4,7 @@ const endpoint = clientCredentials.databaseURL;
 
 // API calls for visits
 const getVisits = (uid) => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/Visits?orderBy="uid"&equalTo="${uid}"`, {
+  fetch(`${endpoint}/Visits.json?orderBy="uid"&equalTo="${uid}"`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -14,7 +14,6 @@ const getVisits = (uid) => new Promise((resolve, reject) => {
     .then((data) => resolve(Object.values(data)))
     .catch(reject);
 });
-
 // to delete visits
 const deleteVisits = (firebaseKey) => new Promise((resolve, reject) => {
   fetch(`${endpoint}/Visits/${firebaseKey}.json`, {
