@@ -18,8 +18,8 @@ export default function ViewVisit() {
       <div className="mt-5 d-flex flex-wrap">
         <div className="text-white ms-5 details">
           <h5>
-            {visitDetails.notes}
-            {visitDetails.time}
+            {visitDetails.senior_obj.notes}
+            {visitDetails.senior_obj.time}
           </h5>
           <p>{visitDetails.notes || ''}</p>
           <br />
