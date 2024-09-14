@@ -1,4 +1,4 @@
-import { deleteSingleSenior, getSingleSenior } from './seniorData';
+import { deleteSingleSenior, getSeniorVisits, getSingleSenior } from './seniorData';
 import { deleteVisits, getSingleVisit } from './visitsData';
 
 const getVisitsDetails = (firebaseKey) => new Promise((resolve, reject) => {
@@ -11,7 +11,7 @@ const getVisitsDetails = (firebaseKey) => new Promise((resolve, reject) => {
 
 const getSeniorDetails = async (firebaseKey) => {
   const senior = await getSingleSenior(firebaseKey);
-  const visits = await getSingleVisit(senior.firebaseKey);
+  const visits = await getSeniorVisits(senior.firebaseKey);
 
   return { ...senior, visits };
 };
@@ -25,6 +25,7 @@ const deleteSeniorVisitsRelationship = (firebaseKey) => new Promise((resolve, re
     });
   }).catch(reject);
 });
+
 export {
   getSeniorDetails, getVisitsDetails, deleteSeniorVisitsRelationship,
 };

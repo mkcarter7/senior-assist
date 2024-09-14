@@ -28,7 +28,7 @@ function ShowVisits() {
         <Button>Add A Visit</Button>
       </Link>
       <div className="d-flex flex-wrap">
-        {/* map over books here using BookCard component */}
+        {/* map over books here using visitCard component */}
         {Visits.map((visit) => (
           <VisitCard key={visit.firebaseKey} visitObj={visit} onUpdate={getAllTheVisits} />
         ))}

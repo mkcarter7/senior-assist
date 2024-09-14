@@ -56,10 +56,10 @@ function VisitForm({ obj }) {
       <h2 className="text-white mt-5">{obj.firebaseKey ? 'Update' : 'Create'} Visits</h2>
 
       {/* Senior Select  */}
-      <FloatingLabel controlId="floatingSelect" label="species">
+      <FloatingLabel controlId="floatingSelect" label="senior">
         <Form.Select
-          aria-label="species"
-          name="species"
+          aria-label="senior"
+          name="senior"
           onChange={handleChange}
           className="mb-3"
           value={formInput.species}
