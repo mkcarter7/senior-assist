@@ -18,11 +18,11 @@ function VisitCard({ visitObj, onUpdate }) {
       <Card.Body>
         <Card.Title>{visitObj.Senior_id}</Card.Title>
         {/* DYNAMIC LINK TO VIEW THE VISIT DETAILS  */}
-        <Link href={`/Visit/${visitObj.firebaseKey}`} passHref>
+        <Link href={`/visits/${visitObj.firebaseKey}`} passHref>
           <Button variant="primary" className="m-2">VIEW</Button>
         </Link>
         {/* DYNAMIC LINK TO EDIT THE VISIT DETAILS  */}
-        <Link href={`/Visit/edit/${visitObj.firebaseKey}`} passHref>
+        <Link href={`/visits/edit/${visitObj.firebaseKey}`} passHref>
           <Button variant="info">EDIT</Button>
         </Link>
         <Button variant="danger" onClick={deleteThisVisit} className="m-2">
@@ -35,7 +35,7 @@ function VisitCard({ visitObj, onUpdate }) {
 
 VisitCard.propTypes = {
   visitObj: PropTypes.shape({
-    Senior_id: PropTypes.number,
+    Senior_id: PropTypes.string,
     notes: PropTypes.string,
     time: PropTypes.string,
     personal_care_id: PropTypes.string,

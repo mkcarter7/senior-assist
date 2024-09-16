@@ -3,7 +3,7 @@ import { deleteVisits, getSingleVisit } from './visitsData';
 
 const getVisitsDetails = (firebaseKey) => new Promise((resolve, reject) => {
   getSingleVisit(firebaseKey).then((visitObj) => {
-    getSingleSenior(visitObj.senior_id).then((seniorObject) => {
+    getSingleSenior(visitObj.Senior_id).then((seniorObject) => {
       resolve({ ...visitObj, seniorObject });
     });
   }).catch(reject);

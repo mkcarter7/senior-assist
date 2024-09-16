@@ -40,13 +40,13 @@ function VisitForm({ obj }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (obj.firebaseKey) {
-      updateVisits(formInput).then(() => router.push(`/Visit/${obj.firebaseKey}`));
+      updateVisits(formInput).then(() => router.push(`/visits/${obj.firebaseKey}`));
     } else {
       const payload = { ...formInput, uid: user.uid };
       createVisit(payload).then(({ name }) => {
-        const patchPayload = { id: name };
+        const patchPayload = { firebaseKey: name };
         updateVisits(patchPayload).then(() => {
-          router.push('/');
+          router.push('/visit');
         });
       });
     }
@@ -59,10 +59,10 @@ function VisitForm({ obj }) {
       <FloatingLabel controlId="floatingSelect" label="senior">
         <Form.Select
           aria-label="senior"
-          name="senior"
+          name="Senior_id"
           onChange={handleChange}
           className="mb-3"
-          value={formInput.species}
+          value={formInput.Senior_id}
           required
         >
           <option value="">Select Senior</option>
@@ -72,26 +72,26 @@ function VisitForm({ obj }) {
         </Form.Select>
       </FloatingLabel>
       {/* Date/Time Entry */}
-      <FloatingLabel controlId="floatingTextarea" label="Date/Time" className="mb-3">
+      <FloatingLabel controlId="floatingTextarea" label="time" className="mb-3">
         <Form.Control
           as="textarea"
-          placeholder="Date Time"
+          placeholder="time"
           style={{ height: '100px' }}
-          name="Date Time"
-          value={formInput.description}
+          name="time"
+          value={formInput.time}
           onChange={handleChange}
           required
         />
       </FloatingLabel>
 
       {/* Visit Entry */}
-      <FloatingLabel controlId="floatingTextarea" label="Visit Details" className="mb-3">
+      <FloatingLabel controlId="floatingTextarea" label="notes" className="mb-3">
         <Form.Control
           as="textarea"
-          placeholder="visit details"
+          placeholder="notes"
           style={{ height: '100px' }}
-          name="Visit Details"
-          value={formInput.description}
+          name="notes"
+          value={formInput.notes}
           onChange={handleChange}
           required
         />
@@ -116,9 +116,9 @@ function VisitForm({ obj }) {
       <Form.Check
         className="text-white mb-3"
         type="switch"
-        id="care"
-        name="care"
-        label="care?"
+        id="personal_care_id"
+        name="personal_care_id"
+        label="personal_care_id"
         checked={formInput.Personal_care_id}
         onChange={handleCareToggle}
       />
@@ -144,7 +144,7 @@ function VisitForm({ obj }) {
 
 VisitForm.propTypes = {
   obj: PropTypes.shape({
-    Senior_id: PropTypes.number,
+    Senior_id: PropTypes.string,
     notes: PropTypes.string,
     time: PropTypes.string,
     personal_care_id: PropTypes.string,
