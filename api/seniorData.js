@@ -54,7 +54,7 @@ const updateSenior = () => {};
 
 // GET A SINGLE senior visits
 const getSeniorVisits = (firebaseKey) => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/Visits.json?orderBy="id"&equalTo="${firebaseKey}"`, {
+  fetch(`${endpoint}/Visits.json?orderBy="senior_id"&equalTo="${firebaseKey}"`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',

@@ -18,9 +18,9 @@ export default function ViewVisit() {
       <div className="mt-5 d-flex flex-wrap">
         <div className="text-white ms-5 details">
           <h5>
-            {visitDetails.Obj?.name}
-            {visitDetails.visitObj?.notes}
-          </h5>Object
+            {visitDetails.seniorObject?.name}
+            {visitDetails.seniorObject?.notes}
+          </h5>
           <p>{visitDetails.notes || ''}</p>
           <br />
         </div>
