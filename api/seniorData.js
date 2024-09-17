@@ -1,7 +1,7 @@
 import { clientCredentials } from '../utils/client';
 
 const endpoint = clientCredentials.databaseURL;
-
+// GET SENIORS
 const getSenior = (uid) => new Promise((resolve, reject) => {
   fetch(`${endpoint}/Senior?orderBy="uid"&equalTo="${uid}"`, {
     method: 'GET',
@@ -20,10 +20,10 @@ const getSenior = (uid) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-// CREATE Senior
+// CREATE SENIOR
 const createSenior = () => {};
 
-//  GET SINGLE senior
+//  GET SINGLE SENIOR
 const getSingleSenior = (firebaseKey) => new Promise((resolve, reject) => {
   fetch(`${endpoint}/Senior/${firebaseKey}.json`, {
     method: 'GET',
@@ -36,7 +36,7 @@ const getSingleSenior = (firebaseKey) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-// DELETE senior
+// DELETE SENIOR
 const deleteSingleSenior = (firebaseKey) => new Promise((resolve, reject) => {
   fetch(`${endpoint}/Senior/${firebaseKey}.json`, {
     method: 'DELETE',
@@ -49,10 +49,10 @@ const deleteSingleSenior = (firebaseKey) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-// UPDATE senior
+// UPDATE SENIOR
 const updateSenior = () => {};
 
-// GET A SINGLE senior visits
+// GET A SINGLE SENIOR VISITS
 const getSeniorVisits = (firebaseKey) => new Promise((resolve, reject) => {
   fetch(`${endpoint}/Visits.json?orderBy="senior_id"&equalTo="${firebaseKey}"`, {
     method: 'GET',

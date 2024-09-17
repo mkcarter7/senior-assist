@@ -2,7 +2,7 @@ import { clientCredentials } from '../utils/client';
 
 const endpoint = clientCredentials.databaseURL;
 
-// API calls for visits
+// API CALL TO GET VISITS
 const getVisits = (uid) => new Promise((resolve, reject) => {
   fetch(`${endpoint}/Visits.json?orderBy="uid"&equalTo="${uid}"`, {
     method: 'GET',
@@ -14,7 +14,7 @@ const getVisits = (uid) => new Promise((resolve, reject) => {
     .then((data) => resolve(Object.values(data)))
     .catch(reject);
 });
-// to delete visits
+// API CALL TO DELETE VISITS
 const deleteVisits = (firebaseKey) => new Promise((resolve, reject) => {
   fetch(`${endpoint}/Visits/${firebaseKey}.json`, {
     method: 'DELETE',
@@ -27,7 +27,7 @@ const deleteVisits = (firebaseKey) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-// create visit
+// CREATE VISITS
 const createVisit = (payload) => new Promise((resolve, reject) => {
   fetch(`${endpoint}/Visits.json`, {
     method: 'POST',
@@ -41,7 +41,7 @@ const createVisit = (payload) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-// update visits
+// UPDATE VISITS
 const updateVisits = (payload) => new Promise((resolve, reject) => {
   fetch(`${endpoint}/Visits/${payload.firebaseKey}.json`, {
     method: 'PATCH',
@@ -55,7 +55,7 @@ const updateVisits = (payload) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-// get single visit
+// GET SINGLE VISIT
 const getSingleVisit = (firebaseKey) => new Promise((resolve, reject) => {
   fetch(`${endpoint}/Visits/${firebaseKey}.json`, {
     method: 'GET',
@@ -68,7 +68,7 @@ const getSingleVisit = (firebaseKey) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-// get visit by senior
+// GET VISIT BY SENIOR
 const getVisitsBySenior = (firebaseKey) => new Promise((resolve, reject) => {
   fetch(`${endpoint}/Visits.json?orderBy="id"&equalTo="${firebaseKey}"`, {
     method: 'GET',
