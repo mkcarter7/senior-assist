@@ -19,6 +19,7 @@ const initialState = {
 function VisitForm({ obj }) {
   // SETS INITIAL STATE TO HOLD THE FORM DATA, THE FORM INPUT UPDATES THE FORM WITH THE NEW DATA
   const [formInput, setFormInput] = useState(initialState);
+
   const [seniors, setSeniors] = useState([]);
   // HOOK THAT ALLOWS YOU TO ACCESS ROUTING AND LETS YOU ROUTE TO A NEW PAGE
   const router = useRouter();
@@ -62,8 +63,21 @@ function VisitForm({ obj }) {
       <h2 className="text- mt-5">{obj.firebaseKey ? 'Update' : 'Create'} Visits</h2>
 
       {/* SENIOR SELECT  */}
+
       <FloatingLabel controlId="floatingSelect" label="Senior Name">
         <Form.Select onChange={handleChange}>
+
+      {/* FORM INPUTS */}
+      <FloatingLabel controlId="floatingSelect" label="senior">
+        <Form.Select
+          aria-label="senior"
+          name="Senior_id"
+          onChange={handleChange}
+          className="mb-3"
+          value={formInput.Senior_id}
+          required
+        >
+
           <option value="">Select Senior</option>
           {
           seniors.map((senior) => (
@@ -140,7 +154,10 @@ VisitForm.propTypes = {
     firebaseKey: PropTypes.string,
   }),
 };
-//  CHECKS FOR ERRORS
+
+
+//  CHECKS FOR ERROS
+
 VisitForm.defaultProps = {
   obj: initialState,
 };
