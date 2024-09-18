@@ -70,7 +70,7 @@ const getSingleVisit = (firebaseKey) => new Promise((resolve, reject) => {
 
 // GET VISIT BY SENIOR
 const getVisitsBySenior = (firebaseKey) => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/Visits.json?orderBy="id"&equalTo="${firebaseKey}"`, {
+  fetch(`${endpoint}/Visits.json?orderBy="uid"&equalTo="${firebaseKey}"`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',

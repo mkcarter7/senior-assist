@@ -14,7 +14,7 @@ function VisitCard({ visitObj, onUpdate }) {
   };
 
   return (
-    <Card style={{ width: '18rem', margin: '10px' }}>
+    <Card style={{ width: '18rem', margin: '10px', backgroundColor: '#365b6d' }}>
       <Card.Body>
         <Card.Title>{visitObj.Senior_id}</Card.Title>
         {/* DYNAMIC LINK TO VIEW THE VISIT DETAILS  */}

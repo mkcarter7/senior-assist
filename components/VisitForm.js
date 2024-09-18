@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react';
 import Form from 'react-bootstrap/Form';
 import { createVisit, updateVisits } from '../api/visitsData';
 import { useAuth } from '../utils/context/authContext';
+import { getSenior } from '../api/seniorData';
 
 // from firebase data
 const initialState = {
@@ -18,6 +19,8 @@ const initialState = {
 function VisitForm({ obj }) {
   // SETS INITIAL STATE TO HOLD THE FORM DATA, THE FORM INPUT UPDATES THE FORM WITH THE NEW DATA
   const [formInput, setFormInput] = useState(initialState);
+
+  const [seniors, setSeniors] = useState([]);
   // HOOK THAT ALLOWS YOU TO ACCESS ROUTING AND LETS YOU ROUTE TO A NEW PAGE
   const router = useRouter();
   // HOOK ACCESS THE CURRENT USER INFORMATION AND STORES IT
@@ -25,6 +28,7 @@ function VisitForm({ obj }) {
   // USE EFFECT CHECKS IF THE OBJ HAS A FIREBASEKEY, UPDATES STATE AND WHEN INPUT OR USER CHANGES
   useEffect(() => {
     if (obj.firebaseKey) setFormInput(obj);
+    getSenior(user.uid).then(setSeniors);
   }, [obj, user]);
 
   // HANDLES FORM INPUT CHANGES AND UPDATES IT WHILE KEEPING EVERYTHING ELSE THE SAME
@@ -56,9 +60,13 @@ function VisitForm({ obj }) {
   };
   return (
     <Form onSubmit={handleSubmit}>
-      <h2 className="text-white mt-5">{obj.firebaseKey ? 'Update' : 'Create'} Visits</h2>
+      <h2 className="text- mt-5">{obj.firebaseKey ? 'Update' : 'Create'} Visits</h2>
 
       {/* SENIOR SELECT  */}
+
+      <FloatingLabel controlId="floatingSelect" label="Senior Name">
+        <Form.Select onChange={handleChange}>
+
       {/* FORM INPUTS */}
       <FloatingLabel controlId="floatingSelect" label="senior">
         <Form.Select
@@ -69,14 +77,22 @@ function VisitForm({ obj }) {
           value={formInput.Senior_id}
           required
         >
+
           <option value="">Select Senior</option>
-          <option value="john smith">John Smith</option>
-          <option value="jane ray">Jane Ray</option>
-          <option value="todd jones">Todd Jones</option>
+          {
+          seniors.map((senior) => (
+            <option
+              key={senior.firebaseKey}
+              value={senior.firebaseKey}
+            >
+              {senior.name}
+            </option>
+          ))
+        }
         </Form.Select>
       </FloatingLabel>
       {/* Date/Time Entry */}
-      <FloatingLabel controlId="floatingTextarea" label="time" className="mb-3">
+      <FloatingLabel controlId="floatingTextarea" label="Date and Time" className="mb-3">
         <Form.Control
           as="textarea"
           placeholder="time"
@@ -89,7 +105,7 @@ function VisitForm({ obj }) {
       </FloatingLabel>
 
       {/* Visit Entry */}
-      <FloatingLabel controlId="floatingTextarea" label="notes" className="mb-3">
+      <FloatingLabel controlId="floatingTextarea" label="Notes" className="mb-3">
         <Form.Control
           as="textarea"
           placeholder="notes"
@@ -103,10 +119,10 @@ function VisitForm({ obj }) {
       <Form.Check
         className="text-white mb-3"
         type="switch"
-        id="personal_care_id"
-        name="personal_care_id"
-        label="personal_care_id"
-        checked={formInput.Personal_care_id}
+        id="Personal_care_id"
+        name="Personal_care_id"
+        label="Personal Care"
+        checked={formInput.personal_care_id}
         onChange={handleCareToggle}
       />
 
@@ -115,8 +131,8 @@ function VisitForm({ obj }) {
           <Form.Control
             type="text"
             placeholder="Personal care"
-            name="personal care"
-            value={formInput.personal_care_id}
+            name="Personal_care_id"
+            value={formInput.Personal_care_id}
             onChange={handleChange}
             required
           />
@@ -138,7 +154,10 @@ VisitForm.propTypes = {
     firebaseKey: PropTypes.string,
   }),
 };
+
+
 //  CHECKS FOR ERROS
+
 VisitForm.defaultProps = {
   obj: initialState,
 };

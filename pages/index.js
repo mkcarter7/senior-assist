@@ -15,6 +15,7 @@ function Home() {
         padding: '30px',
         maxWidth: '400px',
         margin: '0 auto',
+        backgroundColor: '#365b6d',
       }}
     >
       <h1>Hello {user.displayName}! </h1>

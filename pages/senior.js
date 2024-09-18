@@ -23,7 +23,7 @@ function Showseniors() {
   });
 
   return (
-    <div className="text-center my-4">
+    <div style className="text-center my-4">
       <Link href="/Senior/new" passHref>
         <Button>Add A Senior</Button>
       </Link>

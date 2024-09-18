@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { Button } from 'react-bootstrap';
@@ -12,7 +13,7 @@ function ShowVisits() {
   // Get user ID using useAuth Hook
   const { user } = useAuth();
 
-  // create a function that makes the API call to get all the vi
+  // create a function that makes the API call to get all the books
   const getAllTheVisits = () => {
     getVisits(user.uid).then(setVisits);
   };
@@ -20,15 +21,15 @@ function ShowVisits() {
   // make the call to the API to get all the visits on component render
   useEffect(() => {
     getAllTheVisits();
-  });
+  }, []);
 
   return (
     <div className="text-center my-4">
-      <Link href="visits/new" passHref>
+      <Link href="/visits/new" passHref>
         <Button>Add A Visit</Button>
       </Link>
       <div className="d-flex flex-wrap">
-        {/* map over visits here using visitCard component */}
+        {/* map over visits here using visit Card component */}
         {Visits.map((visit) => (
           <VisitCard key={visit.firebaseKey} visitObj={visit} onUpdate={getAllTheVisits} />
         ))}
