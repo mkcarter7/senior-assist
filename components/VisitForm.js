@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react';
 import Form from 'react-bootstrap/Form';
 import { createVisit, updateVisits } from '../api/visitsData';
 import { useAuth } from '../utils/context/authContext';
+import { getSenior } from '../api/seniorData';
 
 // from firebase data
 const initialState = {
@@ -16,15 +17,20 @@ const initialState = {
 };
 // function
 function VisitForm({ obj }) {
+  // SETS INITIAL STATE TO HOLD THE FORM DATA, THE FORM INPUT UPDATES THE FORM WITH THE NEW DATA
   const [formInput, setFormInput] = useState(initialState);
+  const [seniors, setSeniors] = useState([]);
+  // HOOK THAT ALLOWS YOU TO ACCESS ROUTING AND LETS YOU ROUTE TO A NEW PAGE
   const router = useRouter();
+  // HOOK ACCESS THE CURRENT USER INFORMATION AND STORES IT
   const { user } = useAuth();
-  // use effect
+  // USE EFFECT CHECKS IF THE OBJ HAS A FIREBASEKEY, UPDATES STATE AND WHEN INPUT OR USER CHANGES
   useEffect(() => {
     if (obj.firebaseKey) setFormInput(obj);
+    getSenior(user.uid).then(setSeniors);
   }, [obj, user]);
 
-  // handles the change and submit
+  // HANDLES FORM INPUT CHANGES AND UPDATES IT WHILE KEEPING EVERYTHING ELSE THE SAME
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormInput((prevState) => ({
@@ -32,11 +38,11 @@ function VisitForm({ obj }) {
       [name]: value,
     }));
   };
-
+  // FUNCTION FOR TOGGLE PERSONAL CARE FROM TRUE OR FALSE
   const handleCareToggle = () => {
     setFormInput((prev) => ({ ...prev, care: !prev.care }));
   };
-
+  //  UPDATES EXISTING DATA AND ADDS NEW DATA BASED ON USER
   const handleSubmit = (e) => {
     e.preventDefault();
     if (obj.firebaseKey) {
@@ -53,26 +59,26 @@ function VisitForm({ obj }) {
   };
   return (
     <Form onSubmit={handleSubmit}>
-      <h2 className="text-white mt-5">{obj.firebaseKey ? 'Update' : 'Create'} Visits</h2>
+      <h2 className="text- mt-5">{obj.firebaseKey ? 'Update' : 'Create'} Visits</h2>
 
-      {/* Senior Select  */}
-      <FloatingLabel controlId="floatingSelect" label="senior">
-        <Form.Select
-          aria-label="senior"
-          name="Senior_id"
-          onChange={handleChange}
-          className="mb-3"
-          value={formInput.Senior_id}
-          required
-        >
+      {/* SENIOR SELECT  */}
+      <FloatingLabel controlId="floatingSelect" label="Senior Name">
+        <Form.Select onChange={handleChange}>
           <option value="">Select Senior</option>
-          <option value="john smith">John Smith</option>
-          <option value="jane ray">Jane Ray</option>
-          <option value="todd jones">Todd Jones</option>
+          {
+          seniors.map((senior) => (
+            <option
+              key={senior.firebaseKey}
+              value={senior.firebaseKey}
+            >
+              {senior.name}
+            </option>
+          ))
+        }
         </Form.Select>
       </FloatingLabel>
       {/* Date/Time Entry */}
-      <FloatingLabel controlId="floatingTextarea" label="time" className="mb-3">
+      <FloatingLabel controlId="floatingTextarea" label="Date and Time" className="mb-3">
         <Form.Control
           as="textarea"
           placeholder="time"
@@ -85,7 +91,7 @@ function VisitForm({ obj }) {
       </FloatingLabel>
 
       {/* Visit Entry */}
-      <FloatingLabel controlId="floatingTextarea" label="notes" className="mb-3">
+      <FloatingLabel controlId="floatingTextarea" label="Notes" className="mb-3">
         <Form.Control
           as="textarea"
           placeholder="notes"
@@ -96,30 +102,13 @@ function VisitForm({ obj }) {
           required
         />
       </FloatingLabel>
-      {/* personal Care drop down */}
-      {/* <FloatingLabel controlId="floatingSelect" label="Personal Care">
-        <Form.Select
-          aria-label="Personal Care"
-          name="Personal Care"
-          onChange={handleChange}
-          className="mb-3"
-          value={formInput.personal_care_id}
-          required
-        >
-          <option value="">Select Personal Care</option>
-          <option value="Bath">Bath</option>
-          <option value="Clean Teeth">Clean Teeth</option>
-          <option value="Foot Cream">Foot Cream</option>
-          <option value="Cut Nails">Cut Nails</option>
-        </Form.Select>
-      </FloatingLabel> */}
       <Form.Check
         className="text-white mb-3"
         type="switch"
-        id="personal_care_id"
-        name="personal_care_id"
-        label="personal_care_id"
-        checked={formInput.Personal_care_id}
+        id="Personal_care_id"
+        name="Personal_care_id"
+        label="Personal Care"
+        checked={formInput.personal_care_id}
         onChange={handleCareToggle}
       />
 
@@ -128,8 +117,8 @@ function VisitForm({ obj }) {
           <Form.Control
             type="text"
             placeholder="Personal care"
-            name="personal care"
-            value={formInput.personal_care_id}
+            name="Personal_care_id"
+            value={formInput.Personal_care_id}
             onChange={handleChange}
             required
           />
@@ -141,7 +130,7 @@ function VisitForm({ obj }) {
     </Form>
   );
 }
-
+//  TELLS COMPONENT WHAT TO EXPECT
 VisitForm.propTypes = {
   obj: PropTypes.shape({
     Senior_id: PropTypes.string,
@@ -151,7 +140,7 @@ VisitForm.propTypes = {
     firebaseKey: PropTypes.string,
   }),
 };
-
+//  CHECKS FOR ERRORS
 VisitForm.defaultProps = {
   obj: initialState,
 };

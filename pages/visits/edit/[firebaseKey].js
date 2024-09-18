@@ -9,7 +9,7 @@ export default function EditVisit() {
   // grab the firebasekey
   const { firebaseKey } = router.query;
 
-  // make a call to the API to get the book data
+  // make a call to the API to get the visit data
   useEffect(() => {
     getSingleVisit(firebaseKey).then(setEditItem);
   }, [firebaseKey]);

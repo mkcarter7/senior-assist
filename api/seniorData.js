@@ -3,7 +3,7 @@ import { clientCredentials } from '../utils/client';
 const endpoint = clientCredentials.databaseURL;
 
 const getSenior = (uid) => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/Senior?orderBy="uid"&equalTo="${uid}"`, {
+  fetch(`${endpoint}/Senior.json?orderBy="id"&equalTo="${uid}"`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -54,7 +54,7 @@ const updateSenior = () => {};
 
 // GET A SINGLE senior visits
 const getSeniorVisits = (firebaseKey) => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/Visits.json?orderBy="senior_id"&equalTo="${firebaseKey}"`, {
+  fetch(`${endpoint}/Visits.json?orderBy="id"&equalTo="${firebaseKey}"`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
