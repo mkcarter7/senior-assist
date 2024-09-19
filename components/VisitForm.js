@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react';
 import Form from 'react-bootstrap/Form';
 import { createVisit, updateVisits } from '../api/visitsData';
 import { useAuth } from '../utils/context/authContext';
+import { getSenior } from '../api/seniorData';
 
 // from firebase data
 const initialState = {
@@ -22,9 +23,12 @@ function VisitForm({ obj }) {
   const router = useRouter();
   // HOOK ACCESS THE CURRENT USER INFORMATION AND STORES IT
   const { user } = useAuth();
+  //  GET SENIOR FOR DROPDOWN
+  const [seniors, setSeniors] = useState([]);
   // USE EFFECT CHECKS IF THE OBJ HAS A FIREBASEKEY, UPDATES STATE AND WHEN INPUT OR USER CHANGES
   useEffect(() => {
     if (obj.firebaseKey) setFormInput(obj);
+    getSenior(user.uid).then(setSeniors);
   }, [obj, user]);
 
   // HANDLES FORM INPUT CHANGES AND UPDATES IT WHILE KEEPING EVERYTHING ELSE THE SAME
@@ -60,7 +64,7 @@ function VisitForm({ obj }) {
 
       {/* SENIOR SELECT  */}
       {/* FORM INPUTS */}
-      <FloatingLabel controlId="floatingSelect" label="senior">
+      <FloatingLabel controlId="floatingSelect" label="Senior">
         <Form.Select
           aria-label="senior"
           name="Senior_id"
@@ -70,9 +74,14 @@ function VisitForm({ obj }) {
           required
         >
           <option value="">Select Senior</option>
-          <option value="john smith">John Smith</option>
-          <option value="jane ray">Jane Ray</option>
-          <option value="todd jones">Todd Jones</option>
+          {seniors.map((senior) => (
+            <option
+              key={senior.firebaseKey}
+              value={senior.firebaseKey}
+            >
+              {senior.name}
+            </option>
+          ))}
         </Form.Select>
       </FloatingLabel>
       {/* Date/Time Entry */}
@@ -138,6 +147,7 @@ VisitForm.propTypes = {
     firebaseKey: PropTypes.string,
   }),
 };
+//  CHECKS FOR ERROS
 VisitForm.defaultProps = {
   obj: initialState,
 };
