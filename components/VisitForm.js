@@ -12,8 +12,7 @@ import { getSenior } from '../api/seniorData';
 const initialState = {
   Senior_id: '',
   notes: '',
-  time: '',
-  Personal_care_id: '',
+  time_logged: '',
 };
 // function
 function VisitForm({ obj }) {
@@ -27,8 +26,9 @@ function VisitForm({ obj }) {
   const [seniors, setSeniors] = useState([]);
   // USE EFFECT CHECKS IF THE OBJ HAS A FIREBASEKEY, UPDATES STATE AND WHEN INPUT OR USER CHANGES
   useEffect(() => {
-    if (obj.firebaseKey) setFormInput(obj);
     getSenior(user.uid).then(setSeniors);
+
+    if (obj.firebaseKey) setFormInput(obj);
   }, [obj, user]);
 
   // HANDLES FORM INPUT CHANGES AND UPDATES IT WHILE KEEPING EVERYTHING ELSE THE SAME
@@ -38,10 +38,6 @@ function VisitForm({ obj }) {
       ...prevState,
       [name]: value,
     }));
-  };
-  // FUNCTION FOR TOGGLE PERSONAL CARE FROM TRUE OR FALSE
-  const handleCareToggle = () => {
-    setFormInput((prev) => ({ ...prev, care: !prev.care }));
   };
   //  UPDATES EXISTING DATA AND ADDS NEW DATA BASED ON USER
   const handleSubmit = (e) => {
@@ -76,8 +72,8 @@ function VisitForm({ obj }) {
           <option value="">Select Senior</option>
           {seniors.map((senior) => (
             <option
-              key={senior.firebaseKey}
-              value={senior.firebaseKey}
+              key={senior.senior_id}
+              value={senior.senior_id}
             >
               {senior.name}
             </option>
@@ -109,28 +105,6 @@ function VisitForm({ obj }) {
           required
         />
       </FloatingLabel>
-      <Form.Check
-        className="text-white mb-3"
-        type="switch"
-        id="personal_care_id"
-        name="personal_care_id"
-        label="personal_care_id"
-        checked={formInput.Personal_care_id}
-        onChange={handleCareToggle}
-      />
-
-      {formInput.care && (
-        <FloatingLabel controlId="floatingInput3" label="Peronal Care" className="mb-3">
-          <Form.Control
-            type="text"
-            placeholder="Personal care"
-            name="personal care"
-            value={formInput.personal_care_id}
-            onChange={handleChange}
-            required
-          />
-        </FloatingLabel>
-      )}
 
       {/* SUBMIT BUTTON  */}
       <Button type="submit">{obj.firebaseKey ? 'Update' : 'Create'} Visit</Button>
@@ -140,10 +114,9 @@ function VisitForm({ obj }) {
 //  TELLS COMPONENT WHAT TO EXPECT
 VisitForm.propTypes = {
   obj: PropTypes.shape({
-    Senior_id: PropTypes.string,
+    senior_id: PropTypes.string,
     notes: PropTypes.string,
-    time: PropTypes.string,
-    personal_care_id: PropTypes.string,
+    time_logged: PropTypes.string,
     firebaseKey: PropTypes.string,
   }),
 };
