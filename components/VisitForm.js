@@ -11,8 +11,8 @@ import { getSenior } from '../api/seniorData';
 // from firebase data
 const initialState = {
   Senior_id: '',
-  notes: '',
   time_logged: '',
+  notes: '',
 };
 // function
 function VisitForm({ obj }) {
@@ -63,10 +63,10 @@ function VisitForm({ obj }) {
       <FloatingLabel controlId="floatingSelect" label="Senior">
         <Form.Select
           aria-label="senior"
-          name="Senior_id"
+          name="name"
           onChange={handleChange}
           className="mb-3"
-          value={formInput.Senior_id}
+          value={formInput.name}
           required
         >
           <option value="">Select Senior</option>
@@ -86,8 +86,8 @@ function VisitForm({ obj }) {
           as="textarea"
           placeholder="time"
           style={{ height: '100px' }}
-          name="time"
-          value={formInput.time}
+          name="time_logged"
+          value={formInput.time_logged}
           onChange={handleChange}
           required
         />
@@ -114,7 +114,7 @@ function VisitForm({ obj }) {
 //  TELLS COMPONENT WHAT TO EXPECT
 VisitForm.propTypes = {
   obj: PropTypes.shape({
-    senior_id: PropTypes.string,
+    name: PropTypes.string,
     notes: PropTypes.string,
     time_logged: PropTypes.string,
     firebaseKey: PropTypes.string,

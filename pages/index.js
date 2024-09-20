@@ -1,28 +1,43 @@
-import React from 'react';
+import Link from 'next/link';
 import { Button } from 'react-bootstrap';
-import { signOut } from '../utils/auth';
 import { useAuth } from '../utils/context/authContext';
 
-// user id using useAuth hook
 function Home() {
   const { user } = useAuth();
-
   return (
     <div
       className="text-center d-flex flex-column justify-content-center align-content-center"
-      style={{
-        height: '90vh',
-        padding: '30px',
+    >
+      <div style={{
+        padding: '5px',
         maxWidth: '400px',
         margin: '0 auto',
-        backgroundColor: '#365b6d',
+        marginTop: '200px',
       }}
-    >
-      <h1>Hello {user.displayName}! </h1>
-      <p>Click the button below to logout!</p>
-      <Button variant="danger" type="button" size="lg" className="copy-btn" onClick={signOut}>
-        Sign Out
-      </Button>
+      >
+        <div style={{
+          paddingBottom: '180px',
+        }}
+        >
+          <div className="user" style={{ backgroundColor: 'white', color: 'black' }}>
+            <h1 style={{ fontWeight: '100' }}>Welcome</h1>
+            <h3 style={{ fontWeight: '800' }}> {user.displayName}! </h3>
+          </div>
+          <br />
+          <div className="d-grid gap-3">
+            <Link href="/visits/new" passHref>
+              <Button variant="light" size="lg">
+                Add Visits
+              </Button>
+            </Link>
+            <Link href="/visit" passHref>
+              <Button variant="light" size="lg">
+                View Visits
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

@@ -27,7 +27,7 @@ function SeniorCard({ seniorObj, onUpdate }) {
         <Link href={`/Senior/edit/${seniorObj.firebaseKey}`} passHref>
           <Button variant="info">EDIT</Button>
         </Link>
-        <Button variant="danger" onClick={deleteSenior} className="m-2">
+        <Button variant="light" onClick={deleteSenior} className="m-2">
           DELETE
         </Button>
       </Card.Body>

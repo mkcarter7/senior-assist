@@ -19,7 +19,12 @@ export default function ViewVisit() {
         <div className="text-white ms-5 details">
           <h5>
             {visitDetails.name}
+          </h5>
+          <h5>
             {visitDetails.notes}
+          </h5>
+          <h5>
+            {visitDetails.time_logged}
           </h5>
           <br />
         </div>
