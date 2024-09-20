@@ -8,7 +8,7 @@ import { deleteVisits } from '../api/visitsData';
 function VisitCard({ visitObj, onUpdate }) {
   // FOR DELETE, WE NEED TO REMOVE THE VISIT AND HAVE THE VIEW RERENDER,
   const deleteThisVisit = () => {
-    if (window.confirm(`Delete ${visitObj.Senior_id}?`)) {
+    if (window.confirm(`Delete ${visitObj.name}?`)) {
       deleteVisits(visitObj.firebaseKey).then(() => onUpdate());
     }
   };
@@ -16,7 +16,9 @@ function VisitCard({ visitObj, onUpdate }) {
   return (
     <Card style={{ width: '18rem', margin: '10px', backgroundColor: '#365b6d' }}>
       <Card.Body>
-        <Card.Title>{visitObj.Senior_id}</Card.Title>
+        <Card.Title>{visitObj.name}</Card.Title>
+        <Card.Title>{visitObj.time_logged}</Card.Title>
+        <Card.Title>{visitObj.notes}</Card.Title>
         {/* DYNAMIC LINK TO VIEW THE VISIT DETAILS  */}
         <Link href={`/visits/${visitObj.firebaseKey}`} passHref>
           <Button variant="primary" className="m-2">VIEW</Button>
@@ -36,9 +38,9 @@ function VisitCard({ visitObj, onUpdate }) {
 VisitCard.propTypes = {
   visitObj: PropTypes.shape({
     Senior_id: PropTypes.string,
+    name: PropTypes.string,
     notes: PropTypes.string,
-    time: PropTypes.string,
-    personal_care_id: PropTypes.string,
+    time_logged: PropTypes.string,
     firebaseKey: PropTypes.string,
   }).isRequired,
   onUpdate: PropTypes.func.isRequired,

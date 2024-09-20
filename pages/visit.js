@@ -31,7 +31,7 @@ function ShowVisits() {
       <div className="d-flex flex-wrap">
         {/* map over visits here using visit Card component */}
         {Visits.map((visit) => (
-          <VisitCard key={visit.firebaseKey} visitObj={visit} onUpdate={getAllTheVisits} />
+          <VisitCard key={visit.senior_id} visitObj={visit} onUpdate={getAllTheVisits} />
         ))}
       </div>
     </div>

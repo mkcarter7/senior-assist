@@ -67,7 +67,13 @@ const getSingleVisit = (firebaseKey) => new Promise((resolve, reject) => {
     .then((data) => resolve(data))
     .catch(reject);
 });
-
+//  VIEW VISIT DETAILS
+const viewVisitDetails = (visitFirebaseKey) => new Promise((resolve, reject) => {
+  Promise.all([getSingleVisit(visitFirebaseKey), getVisits(visitFirebaseKey)])
+    .then(([visitObject, visitSeniorsArray]) => {
+      resolve({ ...visitObject, visits: visitSeniorsArray });
+    }).catch((error) => reject(error));
+});
 // GET VISIT BY SENIOR
 const getVisitsBySenior = (firebaseKey) => new Promise((resolve, reject) => {
   fetch(`${endpoint}/Visits.json?orderBy="uid"&equalTo="${firebaseKey}"`, {
@@ -88,4 +94,5 @@ export {
   updateVisits,
   getSingleVisit,
   getVisitsBySenior,
+  viewVisitDetails,
 };
