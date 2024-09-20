@@ -30,7 +30,7 @@ function Showseniors() {
       <div className="d-flex flex-wrap">
         {/* map over seniors here using seniorCard component */}
         {seniors.map((senior) => (
-          <SeniorCard key={senior.firebaseKey} seniorObj={senior} onUpdate={getAllTheSeniors} />
+          <SeniorCard key={senior.senior_id} seniorObj={senior} onUpdate={getAllTheSeniors} />
         ))}
       </div>
     </div>
