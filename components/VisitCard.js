@@ -14,7 +14,10 @@ function VisitCard({ visitObj, onUpdate }) {
   };
 
   return (
-    <Card style={{ width: '18rem', margin: '10px', backgroundColor: '#365b6d' }}>
+    <Card style={{
+      color: 'white', width: '18rem', margin: '10px', backgroundColor: '#365b6d',
+    }}
+    >
       <Card.Body>
         <Card.Title>{visitObj.name}</Card.Title>
         <Card.Title>{visitObj.time_logged}</Card.Title>
