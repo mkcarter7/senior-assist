@@ -7,6 +7,7 @@ function Signin() {
     <div
       className="text-center d-flex flex-column justify-content-center align-content-center"
       style={{
+        color: 'white',
         height: '90vh',
         padding: '30px',
         maxWidth: '400px',
