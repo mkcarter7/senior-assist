@@ -1,0 +1,26 @@
+{
+  "-O7jhZUiIeocOLZGH1K2":{
+    "firebaseKey":"-O7jhZUiIeocOLZGH1K2",
+    "senior_id":"-O6YsMuvAW_TPIiHP3Ps",
+    "medicine":"Augmenin",
+    "doage":"250 mg",
+    "directions":"one morning and one night with food"
+  },
+
+"-O7jnE-_KcsA1tvL4B3z":{
+  "firebaseKey":"-O7jnE-_KcsA1tvL4B3z",
+  "senior_id":"-O6YsMuwBXNyjbJC1BiT",
+  "medicine":"Zoloft",
+  "dosage":"20 mg",
+  "directions":"once a day with or without food"
+},
+
+"-O7jnz7L8ayiigy6ssIw":{
+  "firebaseKey":"-O7jnz7L8ayiigy6ssIw",
+  "senior_id":"-O6YsMuwBXNyjbJC1BiU",
+  "medicine":"Zyertec",
+  "dosage":"25 mg",
+  "directions":"once a day"
+}
+}
+  
