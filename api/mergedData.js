@@ -1,11 +1,31 @@
-import { getSingleVisit, getVisits } from './visitsData';
+import { deleteSingleSenior, getSeniorVisits, getSingleSenior } from './seniorData';
+import { deleteVisits, getSingleVisit } from './visitsData';
 
-const viewVisitDetails = (visitFirebaseKey) => new Promise((resolve, reject) => {
-  Promise.all([getSingleVisit(visitFirebaseKey), getVisits(visitFirebaseKey)])
-    .then(([visitObject, visitsSeniorArray]) => {
-      resolve({ ...visitObject, visit: visitsSeniorArray });
-    }).catch((error) => reject(error));
+const getVisitsDetails = (firebaseKey) => new Promise((resolve, reject) => {
+  getSingleVisit(firebaseKey).then((visitObj) => {
+    getSingleSenior(visitObj.Senior_id).then((seniorObject) => {
+      resolve({ ...visitObj, seniorObject });
+    });
+  }).catch(reject);
 });
+
+const getSeniorDetails = async (firebaseKey) => {
+  const senior = await getSingleSenior(firebaseKey);
+  const visits = await getSeniorVisits(senior.firebaseKey);
+
+  return { ...senior, visits };
+};
+
+const deleteSeniorVisitsRelationship = (firebaseKey) => new Promise((resolve, reject) => {
+  getSingleSenior(firebaseKey).then((seniorsVisitsArray) => {
+    const deleteVisitPromises = seniorsVisitsArray.map((visit) => deleteVisits(visit.firebaseKey));
+
+    Promise.all(deleteVisitPromises).then(() => {
+      deleteSingleSenior(firebaseKey).then(resolve);
+    });
+  }).catch(reject);
+});
+
 export {
-  getVisits, viewVisitDetails,
+  getSeniorDetails, getVisitsDetails, deleteSeniorVisitsRelationship,
 };

@@ -12,10 +12,6 @@ export default function ViewSenior() {
   // grab firebaseKey from url
   const { firebaseKey } = router.query;
 
-  const getSDetails = () => {
-    getSeniorDetails(firebaseKey).then(setSeniorDetails);
-  };
-
   //   make call to API layer to get the data
   useEffect(() => {
     getSeniorDetails(firebaseKey).then(setSeniorDetails);
@@ -23,7 +19,7 @@ export default function ViewSenior() {
 
   return (
     <div>{seniorDetails.visits?.map((visit) => (
-      <VisitCard key={visit.firebaseKey} visitObj={visit} onUpdate={getSDetails} />
+      <VisitCard key={visit.firebaseKey} visitObj={visit} onUpdate={getSeniorDetails} />
     ))}
     </div>
   );
