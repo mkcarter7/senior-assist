@@ -11,12 +11,12 @@ This app is a centralized location to store, create, and view information in an 
 ERD link
 https://dbdiagram.io/d/Senior-Assist-66ba3d438b4bb5230ee74748
 
-![alt text](<Screenshot 2024-08-20 190202-1.png>)
+![alt text](image.png)
 
 Wireframe link
 https://www.figma.com/board/EqcTCucH0fvlqKdCZ6cnuG/Senior-Assist?node-id=0-1&t=o1qczsYKWMDxJlyt-1
 
-![alt text](<Screenshot 2024-08-22 210852-1.png>)
+![alt text](image-1.png)
 
 Project Board
 https://github.com/users/mkcarter7/projects/5
@@ -30,9 +30,8 @@ User is a family member or caregiver of a senior who is living in their own home
 -The user will be able to view, add, edit and delete medications
 
 ![alt text](<Screenshot 2024-09-21 100955.png>)
-
-![alt text](<Screenshot 2024-09-21 100940.png>)
-
+![alt text](<Screenshot 2024-09-21 100926.png>)
 ![alt text](<Screenshot 2024-09-21 101009.png>)
+![alt text](<Screenshot 2024-09-21 100940.png>)
 
 Video Walk Through with Loom
