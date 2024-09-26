@@ -34,6 +34,16 @@ function Home() {
               <Button variant="light" size="lg">
                 View Visits
               </Button>
+              <Link href="/medicine/new" passHref>
+                <Button variant="light" size="lg">
+                  Add Medicine
+                </Button>
+              </Link>
+              <Link href="/medicine" passHref>
+                <Button variant="light" size="lg">
+                  View Medicine
+                </Button>
+              </Link>
             </Link>
           </div>
         </div>
