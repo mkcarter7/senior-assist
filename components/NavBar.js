@@ -31,6 +31,9 @@ export default function NavBar() {
             <Link passHref href="/visit">
               <Nav.Link>Visits</Nav.Link>
             </Link>
+            <Link passHref href="/medicine">
+              <Nav.Link>Medicine</Nav.Link>
+            </Link>
             <Button variant="light" onClick={signOut}>Sign Out</Button>
           </Nav>
         </Navbar.Collapse>
